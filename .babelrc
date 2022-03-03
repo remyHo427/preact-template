@@ -1,0 +1,12 @@
+{
+  "presets": [
+    "@babel/env",
+    "@babel/preset-typescript",
+    "preact"
+  ],
+  "plugins": [
+    ["babel-plugin-styled-components", {
+      "pure": true
+    }]
+  ]
+}
