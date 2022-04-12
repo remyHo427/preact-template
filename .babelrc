@@ -2,11 +2,13 @@
   "presets": [
     "@babel/env",
     "@babel/preset-typescript",
-    "preact"
-  ],
-  "plugins": [
-    ["babel-plugin-styled-components", {
-      "pure": true
-    }]
+    "preact",
+    [
+      "env", {
+        "targets": {
+          "browsers": ["last 2 versions", "ie >= 7"]
+        }
+      }
+    ],
   ]
 }
