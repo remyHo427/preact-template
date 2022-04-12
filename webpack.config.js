@@ -1,5 +1,7 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssnanoPlugin = require('cssnano-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
@@ -28,9 +30,25 @@ module.exports = {
         loader: 'source-map-loader',
       },
       {
+        test: /.s?css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: ['babel-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
       },
     ],
   },
@@ -38,6 +56,7 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'index.html'),
     }),
+    new MiniCssExtractPlugin(),
   ],
   devServer: {
     open: true,
@@ -47,6 +66,6 @@ module.exports = {
   },
   optimization: {
     minimize: true,
-    minimizer: [new UglifyJsPlugin()],
+    minimizer: [new CssnanoPlugin(), new UglifyJsPlugin()],
   },
 };
